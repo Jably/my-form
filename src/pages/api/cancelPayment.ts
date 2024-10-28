@@ -13,7 +13,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         {
           headers: {
             'Content-Type': 'application/json',
-            Authorization: `Basic ${Buffer.from(process.env.SERVER_KEY + ':').toString('base64')}`,
+            Authorization: `Basic ${Buffer.from(process.env.NEXT_PRIVATE_MIDTRANS_SERVER_KEY + ':').toString('base64')}`,
           },
         }
       );

@@ -193,7 +193,7 @@ export const RegistrationConfirmation = ({ onBack, onNext }: { onBack: () => voi
         title={modalContent.title} 
         visible={isModalVisible} 
         onOk={handleModalClose} 
-        onCancel={handleModalClose}
+        // onCancel={handleModalClose}
       >
         <p>{modalContent.message}</p>
       </Modal>

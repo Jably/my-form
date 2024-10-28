@@ -9,20 +9,20 @@ import { Card } from 'antd';
 export const RegistrationForm = () => {
   const [currentStep, setCurrentStep] = useState(1);
 
-  // Mengambil langkah saat ini dari localStorage ketika komponen di-render pada sisi klien
-  useEffect(() => {
-    const savedStep = typeof window !== 'undefined' ? localStorage.getItem('currentStep') : null;
-    if (savedStep) {
-      setCurrentStep(Number(savedStep));
-    }
-  }, []);
+  // // Mengambil langkah saat ini dari localStorage ketika komponen di-render pada sisi klien
+  // useEffect(() => {
+  //   const savedStep = typeof window !== 'undefined' ? localStorage.getItem('currentStep') : null;
+  //   if (savedStep) {
+  //     setCurrentStep(Number(savedStep));
+  //   }
+  // }, []);
 
-  // Update localStorage setiap kali currentStep berubah, hanya jika di sisi klien
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      localStorage.setItem('currentStep', currentStep.toString());
-    }
-  }, [currentStep]);
+  // // Update localStorage setiap kali currentStep berubah, hanya jika di sisi klien
+  // useEffect(() => {
+  //   if (typeof window !== 'undefined') {
+  //     localStorage.setItem('currentStep', currentStep.toString());
+  //   }
+  // }, [currentStep]);
 
   const nextStep = () => setCurrentStep((prevStep) => prevStep + 1);
   const prevStep = () => setCurrentStep((prevStep) => prevStep - 1);
