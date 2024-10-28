@@ -3,22 +3,39 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev -H localhost -p 3000",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
   },
   "dependencies": {
-    "react": "19.0.0-rc-69d4b800-20241021",
-    "react-dom": "19.0.0-rc-69d4b800-20241021",
-    "next": "15.0.1"
+    "@ant-design/icons": "^5.5.1",
+    "@prisma/client": "^5.2.1",
+    "@reduxjs/toolkit": "^2.0.1",
+    "antd": "^5.3.3",
+    "axios": "^1.6.2",
+    "dayjs": "^1.11.10",
+    "midtrans-client": "^1.4.1",
+    "mysql2": "^3.6.5",
+    "next": "14.0.4",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-redux": "^9.0.4"
   },
   "devDependencies": {
-    "typescript": "^5",
-    "@types/node": "^20",
-    "@types/react": "^18",
-    "@types/react-dom": "^18",
-    "eslint": "^8",
-    "eslint-config-next": "15.0.1"
+    "@types/node": "^20.10.4",
+    "@types/react": "^18.2.45",
+    "@types/react-dom": "^18.2.17",
+    "eslint": "^8.55.0",
+    "eslint-config-next": "14.0.4",
+    "prisma": "^5.7.0",
+    "typescript": "^5.3.3"
+  },
+  "resolutions": {
+    "glob": "^9.3.5",
+    "@humanwhocodes/config-array": "^0.11.11",
+    "@humanwhocodes/object-schema": "^2.0.1",
+    "flat-cache": "^3.2.0",
+    "rimraf": "^5.0.5"
   }
 }

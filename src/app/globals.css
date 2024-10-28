@@ -1,42 +1,372 @@
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+/* global.css */
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
-html,
-body {
-  max-width: 100vw;
-  overflow-x: hidden;
-}
-
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
+/* Reset dan Base Styles */
 * {
-  box-sizing: border-box;
-  padding: 0;
   margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-a {
-  color: inherit;
-  text-decoration: none;
+body {
+  background-color: #f5f5f5;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
+/* Container Styles */
+.registration-container {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
+/* Card Styles */
+.registration-card {
+  background-color: #ffffff !important;
+  border-radius: 12px !important;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px !important;
+  padding: 24px;
+}
+
+.registration-card .ant-card-head {
+  border-bottom: none;
+  padding: 0 0 20px 0;
+}
+
+.registration-card .ant-card-head-title {
+  font-size: 24px;
+  font-weight: 600;
+  text-align: center;
+  color: #1a1a1a;
+}
+
+/* Form Styles */
+.registration-form {
+  margin-top: 20px;
+}
+
+.form-header {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form-step-label {
+  font-size: 25px;
+  color: #faad14;
+  font-weight: 600;
+}
+
+.form-step-number {
+  font-size: 24px;
+  font-weight: bold;
+  color: #1a1a1a;
+}
+
+.form-title {
+  font-size: 20px;
+  font-weight: bold;
+  color: #1a1a1a;
+}
+
+.form-subtitle {
+  font-size: 14px;
+  color: #8c8c8c;
+  margin-top: 4px;
+}
+
+/* Optional: Add some spacing to the card content */
+.registration-card {
+  padding: 24px;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .form-step-number {
+    font-size: 20px;
   }
+  
+  .form-title {
+    font-size: 18px;
+  }
+  
+  .form-subtitle {
+    font-size: 13px;
+  }
+}
+
+.registration-form .ant-form-item-label > label {
+  font-weight: 700;
+  
+  color: #262626;
+}
+
+/* Input Styles */
+.registration-form .ant-input,
+.registration-form .ant-picker,
+.registration-form .ant-select-selector {
+  border-radius: 8px;
+  border: 2px solid black;
+  padding: 8px 12px;
+  height: 40px;
+}
+
+.registration-form .ant-input:hover,
+.registration-form .ant-picker:hover,
+.registration-form .ant-select-selector:hover {
+  border-color: #40a9ff;
+}
+
+.registration-form .ant-input:focus,
+.registration-form .ant-picker-focused,
+.registration-form .ant-select-focused .ant-select-selector {
+  border-color: #40a9ff;
+  box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.2);
+}
+
+/* TextArea Styles */
+.reason-textarea {
+  min-height: 120px !important;
+  border-radius: 8px !important;
+  padding: 12px !important;
+  resize: vertical;
+}
+
+/* DatePicker Styles */
+.full-width {
+  width: 100%;
+}
+
+/* Select Styles */
+.registration-form .ant-select-selector {
+  height: 40px !important;
+  padding: 4px 12px !important;
+}
+
+.registration-form .ant-select-selection-search-input {
+  height: 38px !important;
+}
+
+.registration-form .ant-select-selection-item {
+  line-height: 32px !important;
+}
+
+/* Button Styles */
+.submit-button {
+  width: 100%;
+  height: 44px !important;
+  font-size: 16px;
+  font-weight: 500;
+  border-radius: 8px;
+  background-color: #1890ff;
+  border: none;
+  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.045);
+  transition: all 0.3s ease;
+}
+
+.submit-button:hover {
+  background-color: #40a9ff;
+  transform: translateY(-1px);
+}
+
+.submit-button:active {
+  transform: translateY(0);
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .registration-container {
+    margin: 1rem auto;
+    padding: 0 0.5rem;
+  }
+
+  .registration-card .ant-card-head-title {
+    font-size: 20px;
+  }
+
+  .registration-form .ant-form-item {
+    margin-bottom: 16px;
+  }
+}
+
+/* Error State Styles */
+.registration-form .ant-form-item-explain-error {
+  font-size: 14px;
+  margin-top: 4px;
+  color: #ff4d4f;
+}
+
+.registration-form .ant-form-item-has-error .ant-input,
+.registration-form .ant-form-item-has-error .ant-picker,
+.registration-form .ant-form-item-has-error .ant-select-selector {
+  border-color: #ff4d4f;
+}
+
+/* Optional: Loading State Styles */
+.submit-button.ant-btn-loading {
+  opacity: 0.8;
+  pointer-events: none;
+}
+
+/* Optional: Success State Styles */
+.registration-form .ant-form-item-has-success .ant-input,
+.registration-form .ant-form-item-has-success .ant-picker,
+.registration-form .ant-form-item-has-success .ant-select-selector {
+  border-color: #52c41a;
+}
+
+/* Steps Container Styles */
+.steps-container {
+  margin-bottom: 24px;
+  padding: 20px;
+}
+
+.steps-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  position: relative;
+  max-width: 1000px;
+  margin: 0 auto;
+  gap: 32px; /* Spacing between steps */
+}
+
+/* Individual Step Styles */
+.step {
+  flex: 1;
+  position: relative;
+  text-align: center;
+  padding-top: 24px; /* Space for title */
+}
+
+.step-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #8c8c8c;
+  margin-bottom: 24px;
+  text-align: center;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+}
+
+/* Progress Bar Styles */
+.progress-bar {
+  height: 10px;
+  top: 20px;
+  background-color: #f0f0f0;
+  position: relative;
+  border-radius: 2px;
+  margin: 0 8px; /* Add margin to separate bars */
+}
+
+.progress-fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-color: #f0f0f0;
+  border-radius: 2px;
+}
+
+/* Active Step Styles */
+.step.active .step-title {
+  color: #1a1a1a;
+}
+
+.step.active .progress-fill {
+  background: linear-gradient(
+    90deg,
+    #faad14 0%,
+    #ffd666 50%,
+    #faad14 100%
+  );
+  background-size: 200% 100%;
+  animation: progressAnimation 2s ease-in-out infinite;
+}
+
+@keyframes progressAnimation {
+  0% {
+    background-position: 100% 0;
+  }
+  100% {
+    background-position: -100% 0;
+  }
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .steps-wrapper {
+    flex-direction: column;
+    gap: 32px;
+  }
+
+  .step {
+    width: 100%;
+    padding-top: 0;
+  }
+
+  .step-title {
+    position: relative;
+    transform: none;
+    left: 0;
+    text-align: center;
+    margin-bottom: 8px;
+  }
+}
+
+/* Optional: Completed Step Styles */
+.step.completed .progress-fill {
+  background: #52c41a;
+  animation: none;
+}
+
+/* Ensure text stays centered */
+.step:first-child .step-title,
+.step:last-child .step-title {
+  text-align: center;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.step2-container {
+  margin: 20px 0;
+}
+
+.registration-path {
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+
+.reguler-options,
+.fasttrack-options {
+  margin-top: 15px;
+  border: 1px solid #d9d9d9;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.price-display {
+  margin-top: 10px;
+  font-weight: bold;
+  color: #3b5998; /* Warna untuk harga */
+}
+
+.submit-button {
+  margin-top: 20px;
+}
+
+.description-card {
+  margin-bottom: 20px;
+  background-color: #f0f2f5; /* Warna latar belakang yang lebih terang */
+  padding: 15px;
+  border-radius: 8px;
+}
+
+.description-content {
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
 }
