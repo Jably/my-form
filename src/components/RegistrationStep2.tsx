@@ -62,6 +62,7 @@ export const RegistrationStep2: React.FC<RegistrationStep2Props> = ({ onNext, on
         <form onSubmit={(e) => { e.preventDefault(); onFinish(); }}>
           <div className="registration-path">
             <Radio.Group onChange={handlePathChange} value={selectedPath}>
+              
               <Radio value="Reguler">Reguler</Radio>
               <Radio value="Fast Track">Fast Track</Radio>
             </Radio.Group>

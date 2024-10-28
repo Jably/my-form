@@ -20,6 +20,7 @@ export const RegistrationConfirmation = ({ onBack, onNext }: { onBack: () => voi
   const [paymentSuccess, setPaymentSuccess] = useState(false); 
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [modalContent, setModalContent] = useState({ title: '', message: '' });
+  const [paymentStatus, setPaymentStatus] = useState<string | null>(null); // State untuk status pembayaran
 
   useEffect(() => {
     const handleBeforeUnload = (event: BeforeUnloadEvent) => {
@@ -27,7 +28,6 @@ export const RegistrationConfirmation = ({ onBack, onNext }: { onBack: () => voi
       event.returnValue = '';
     };
 
-    const paymentStatus = localStorage.getItem('paymentStatus');
     if (paymentStatus === 'pending') {
       cancelTransaction(); // Panggil fungsi untuk membatalkan transaksi
     }
@@ -36,9 +36,8 @@ export const RegistrationConfirmation = ({ onBack, onNext }: { onBack: () => voi
 
     return () => {
       window.removeEventListener('beforeunload', handleBeforeUnload);
-      localStorage.removeItem('paymentStatus'); // Hapus status ketika komponen di-unmount
     };
-  }, []);
+  }, [paymentStatus]);
 
   const handlePayment = async () => {
     if (isProcessing || snapToken) {
@@ -68,13 +67,13 @@ export const RegistrationConfirmation = ({ onBack, onNext }: { onBack: () => voi
 
       if (response.data.token) {
         setSnapToken(response.data.token); 
-        localStorage.setItem('paymentStatus', 'pending'); // Simpan status pending
+        setPaymentStatus('pending'); // Set status pending ke state
         window.snap.pay(response.data.token, {
           onSuccess: (result) => {
             console.log('Payment successful:', result);
             showModal('Pembayaran Berhasil', 'Pembayaran Anda telah berhasil!');
             setPaymentSuccess(true); 
-            localStorage.removeItem('paymentStatus'); // Hapus status setelah sukses
+            setPaymentStatus(null); // Hapus status setelah sukses
           },
           onPending: (result) => {
             console.log('Payment pending:', result);
@@ -121,7 +120,7 @@ export const RegistrationConfirmation = ({ onBack, onNext }: { onBack: () => voi
           console.log('Payment successful:', result);
           showModal('Pembayaran Berhasil', 'Pembayaran Anda telah berhasil!');
           resetTransaction();
-          localStorage.removeItem('paymentStatus'); // Hapus status setelah sukses
+          setPaymentStatus(null); // Hapus status setelah sukses
         },
         onPending: (result) => {
           console.log('Payment pending:', result);
@@ -152,7 +151,7 @@ export const RegistrationConfirmation = ({ onBack, onNext }: { onBack: () => voi
           if (response.status === 200) {
             setModalContent({ title: 'Pembatalan Berhasil', message: 'Transaksi berhasil dibatalkan.' });
             resetTransaction();
-            localStorage.removeItem('paymentStatus'); // Hapus status setelah dibatalkan
+            setPaymentStatus(null); // Hapus status setelah dibatalkan
           } else {
             setModalContent({ title: 'Pembatalan Gagal', message: 'Gagal membatalkan transaksi di Midtrans.' });
           }
@@ -193,7 +192,6 @@ export const RegistrationConfirmation = ({ onBack, onNext }: { onBack: () => voi
         title={modalContent.title} 
         visible={isModalVisible} 
         onOk={handleModalClose} 
-        // onCancel={handleModalClose}
       >
         <p>{modalContent.message}</p>
       </Modal>

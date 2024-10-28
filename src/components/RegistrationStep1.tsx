@@ -249,7 +249,7 @@ export const RegistrationStep1 = ({ onNext }: RegistrationStep1Props) => {
         <Form.Item label="Alamat Lengkap" name="address">
           <TextArea 
             rows={4} 
-            placeholder="Masukkan alamat lengkap"
+            placeholder="Masukkan alamat lengkap Contoh: Jl.Nilam No.11 Rt02/009"
             onChange={(e) => dispatch(updateForm({ address: e.target.value }))} 
           />
         </Form.Item>
