@@ -1,96 +1,157 @@
 // src/components/RegistrationStep2.tsx
-'use client';
-import { Form, Radio, Button, Card } from 'antd';
+import { Button, Card, Radio } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/store/store';
 import { updateForm } from '@/store/formSlice';
 import React, { useState } from 'react';
+import '../app/globals.css';
 
 interface RegistrationStep2Props {
   onNext: () => void;
-  onBack: () => void; // Tambahkan props onBack
+  onBack: () => void;
 }
 
 export const RegistrationStep2: React.FC<RegistrationStep2Props> = ({ onNext, onBack }) => {
   const dispatch = useDispatch();
   const formData = useSelector((state: RootState) => state.form);
-  const [selectedPath, setSelectedPath] = useState('');
   const [selectedOption, setSelectedOption] = useState('');
   const [price, setPrice] = useState('');
 
-  const handlePathChange = (e: any) => {
-    const value = e.target.value;
-    setSelectedPath(value);
-    setSelectedOption('');
-    setPrice('');
-  };
+  const handleOptionChange = (option: string) => {
+    setSelectedOption(option);
 
-  const handleOptionChange = (e: any) => {
-    const value = e.target.value;
-    setSelectedOption(value);
-    
-    // Set price based on selection
-    if (selectedPath === 'Reguler') {
-      switch (value) {
-        case 'EarlyBird 1':
-          setPrice('Rp 10');
-          break;
-        case 'EarlyBird 2':
-          setPrice('Rp 800.000');
-          break;
-        case 'Regular':
-          setPrice('Rp 1.200.000');
-          break;
-        default:
-          setPrice('');
-      }
-    }
+    const prices: { [key: string]: string } = {
+      'EarlyBird 1': 'Rp 100.000',
+      'EarlyBird 2': 'Rp 125.000',
+      'Regular': 'Rp 150.000',
+      'Fast Track': 'Rp 200.000',
+    };
+
+    setPrice(prices[option] || '');
   };
 
   const onFinish = () => {
-    // Update Redux store with selected path and option
-    dispatch(updateForm({ category: selectedPath, option: selectedOption }));
-    onNext(); // Panggil fungsi untuk melanjutkan ke langkah berikutnya
+    dispatch(updateForm({ option: selectedOption, price })); // Menyimpan data option dan price ke Redux
+    onNext(); // Pindah ke langkah berikutnya
   };
 
   return (
-    <div className="step2-container">
-      <Card title="Step 2: Pilih Jalur Pendaftaran" className="registration-card">
-        <div className="step2-description">
-          Silahkan pilih jalur pendaftaran sesuai dengan preferensi-mu.
-        </div>
-        <form onSubmit={(e) => { e.preventDefault(); onFinish(); }}>
-          <div className="registration-path">
-            <Radio.Group onChange={handlePathChange} value={selectedPath}>
-              
-              <Radio value="Reguler">Reguler</Radio>
-              <Radio value="Fast Track">Fast Track</Radio>
-            </Radio.Group>
-          </div>
-
-          {selectedPath === 'Reguler' && (
-            <div className="reguler-options">
-              <Radio.Group onChange={handleOptionChange} value={selectedOption}>
-                <Radio value="EarlyBird 1">EarlyBird 1</Radio>
-                <Radio value="EarlyBird 2">EarlyBird 2</Radio>
-                <Radio value="Regular">Regular</Radio>
-              </Radio.Group>
-              <div className="price-display">
-                {selectedOption && <div>Harga: {price}</div>}
+    <Card title="Step 2: Pilih Jalur Pendaftaran" className="registration-card">
+      <div className="step2-description">
+        Silahkan pilih opsi pendaftaran sesuai dengan preferensi-mu.
+      </div>
+      <form onSubmit={(e) => { e.preventDefault(); onFinish(); }} className="registration-form">
+        <div className="registration-path" style={{ display: 'flex', flexWrap: 'wrap', gap: '16px' }}>
+          <Card
+            className={`option-card ${selectedOption === 'Fast Track' ? 'selected' : ''}`}
+            title={
+              <div className={'ant-card-title2'} style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <Radio
+                  checked={selectedOption === 'Fast Track'}
+                  onChange={() => handleOptionChange('Fast Track')}
+                />
+                <span>Fast Track Registration</span>
               </div>
+            }
+            style={{ flex: '1 1 calc(50% - 16px)' }}
+            onClick={() => handleOptionChange('Fast Track')}
+          >
+            <div className="regist-info">
+              <p>Registration: 1-31 November 2024</p>
+              <p>Last Submission: <span role="img" aria-label="calendar">📅</span> 30 November 2024</p>
+              <p>Do not need to do administrative selection process</p>
+              <p>Free Exclusive Webinar: Persiapan Memperoleh Beasiswa Studi Ke Luar Negeri</p>
             </div>
-          )}
+            <div className="commitment-fee">
+              <strong>Commitment Fee: </strong> Rp 200.000
+            </div>
+          </Card>
 
-          <div className="button-group">
-            <Button type="default" onClick={onBack} className="back-button" style={{ marginRight: '8px' }}>
-              Kembali
-            </Button>
-            <Button type="primary" htmlType="submit" className="submit-button" disabled={!selectedPath}>
-              Selanjutnya
-            </Button>
-          </div>
-        </form>
-      </Card>
-    </div>
+          <Card
+            className={`option-card ${selectedOption === 'EarlyBird 1' ? 'selected' : ''}`}
+            title={
+              <div className={'ant-card-title2'} style={{ display: 'flex', alignItems: 'center' }}>
+                <Radio
+                  checked={selectedOption === 'EarlyBird 1'}
+                  onChange={() => handleOptionChange('EarlyBird 1')}
+                />
+                <span>EarlyBird 1</span>
+              </div>
+            }
+            style={{ flex: '1 1 calc(50% - 16px)' }}
+            onClick={() => handleOptionChange('EarlyBird 1')}
+          >
+            <div className="regist-info">
+              <p>Registration: 1-31 November 2024</p>
+              <p>Last Submission: <span role="img" aria-label="calendar">📅</span> 30 November 2024</p>
+              <p>Do not need to do administrative selection process</p>
+              <p>Free Exclusive Webinar: Persiapan Memperoleh Beasiswa Studi Ke Luar Negeri</p>
+            </div>
+            <div className="commitment-fee">
+              <strong>Commitment Fee: </strong> Rp 100.000
+            </div>
+          </Card>
+
+          <Card
+            className={`option-card ${selectedOption === 'EarlyBird 2' ? 'selected' : ''}`}
+            title={
+              <div className={'ant-card-title2'} style={{ display: 'flex', alignItems: 'center' }}>
+                <Radio
+                  checked={selectedOption === 'EarlyBird 2'}
+                  onChange={() => handleOptionChange('EarlyBird 2')}
+                />
+                <span>EarlyBird 2</span>
+              </div>
+            }
+            style={{ flex: '1 1 calc(50% - 16px)' }}
+            onClick={() => handleOptionChange('EarlyBird 2')}
+          >
+            <div className="regist-info">
+              <p>Registration: 1-31 November 2024</p>
+              <p>Last Submission: <span role="img" aria-label="calendar">📅</span> 30 November 2024</p>
+              <p>Do not need to do administrative selection process</p>
+              <p>Free Exclusive Webinar: Persiapan Memperoleh Beasiswa Studi Ke Luar Negeri</p>
+            </div>
+            <div className="commitment-fee">
+              <strong>Commitment Fee: </strong> Rp 125.000
+            </div>
+          </Card>
+
+          <Card
+            className={`option-card ${selectedOption === 'Regular' ? 'selected' : ''}`}
+            title={
+              <div className={'ant-card-title2'} style={{ display: 'flex', alignItems: 'center' }}>
+                <Radio
+                  checked={selectedOption === 'Regular'}
+                  onChange={() => handleOptionChange('Regular')}
+                />
+                <span>Regular</span>
+              </div>
+            }
+            style={{ flex: '1 1 calc(50% - 16px)' }}
+            onClick={() => handleOptionChange('Regular')}
+          >
+            <div className="regist-info">
+              <p>Registration: 1-31 November 2024</p>
+              <p>Last Submission: <span role="img" aria-label="calendar">📅</span> 30 November 2024</p>
+              <p>Do not need to do administrative selection process</p>
+              <p>Free Exclusive Webinar: Persiapan Memperoleh Beasiswa Studi Ke Luar Negeri</p>
+            </div>
+            <div className="commitment-fee">
+              <strong>Commitment Fee: </strong> Rp 150.000
+            </div>
+          </Card>
+        </div>
+
+        <div className="button-group" style={{ display: 'flex', justifyContent: 'space-between', marginTop: '20px', flexWrap: 'wrap' }}>
+          <Button onClick={onBack} className="back-button">
+            Kembali
+          </Button>
+          <Button type="primary" htmlType="submit" className="submit-button" disabled={!selectedOption}>
+            Selanjutnya
+          </Button>
+        </div>
+      </form>
+    </Card>
   );
 };

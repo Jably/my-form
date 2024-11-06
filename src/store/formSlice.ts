@@ -11,9 +11,9 @@ interface FormState {
   district: string;
   village: string;
   address: string;
-  reason: string;
-  category: string; // Jalur pendaftaran
+  reason: string; // Jalur pendaftaran
   option: string;   // Opsi jalur pendaftaran
+  price: string;    // Tambahkan properti price
   email: string;
 }
 
@@ -28,9 +28,9 @@ const initialState: FormState = {
   village: '',
   address: '',
   reason: '',
-  category: '',
   option: '',
-  email:'',
+  price: '', // Inisialisasi price
+  email: '',
 };
 
 const formSlice = createSlice({

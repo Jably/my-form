@@ -29,12 +29,15 @@ export const RegistrationForm = () => {
 
   return (
     <div className="registration-container">
+      <div className="title">
+        <p>Empower U: Youth Summit Across 3 European Countries - The Netherlands, Belgium, and France</p>
+      </div>
       <div className="steps-container">
         <div className="steps-wrapper">
           {[1, 2, 3].map((step) => (
             <div key={step} className={`step ${currentStep === step ? 'active' : ''}`}>
               <div className="step-title">{`Step ${step}: ${
-                step === 1 ? 'Isi Biodata' : step === 2 ? 'Pilih Jalur Pendaftaran' : 'Konfirmasi'
+                step === 1 ? 'Personal Information' : step === 2 ? 'Select Registration Path' : 'Confirmation'
               }`}</div>
               <div className="progress-bar">
                 <div

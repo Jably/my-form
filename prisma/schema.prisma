@@ -1,38 +1,20 @@
-// schema.prisma
-
+// prisma/schema.prisma
 datasource db {
-  provider = "mysql"
-  url      = env("DATABASE_URL")
+  provider = "mysql" 
+  url      = env("DATABASE_URL")  // Pastikan menambahkan DATABASE_URL di .env
 }
 
 generator client {
   provider = "prisma-client-js"
 }
 
-model CustomerDetails {
-  id         Int        @id @default(autoincrement())
-  firstName  String
-  lastName   String
-  email      String
-  phone      String
-  address    String?
-  province   String?
-  regency    String?
-  district   String?
-  village    String?
-  reason     String?
-  category   String?
-  option     String?
-  transactions Transaction[]
-}
-
-model Transaction {
-  id                 Int              @id @default(autoincrement())
-  orderId            String           @unique
-  amount             Float
-  status             String
-  createdAt         DateTime         @default(now())
-  updatedAt         DateTime         @updatedAt
-  customerDetailsId  Int
-  customerDetails    CustomerDetails   @relation(fields: [customerDetailsId], references: [id])
+model Registration {
+  id               Int      @id @default(autoincrement())
+  orderId          String
+  fullName         String
+  email            String
+  phone            String
+  address          String
+  price            String
+  transactionStatus String  // Status transaksi
 }

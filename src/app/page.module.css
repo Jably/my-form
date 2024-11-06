@@ -166,3 +166,112 @@ a.secondary {
     filter: invert();
   }
 }
+
+/* app/globals.css */
+
+.step2-container {
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+}
+
+.registration-card {
+  width: 100%;
+  max-width: 900px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+}
+
+.step2-description {
+  font-size: 16px;
+  color: #333;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.registration-path {
+  display: flex;
+  gap: 16px;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.radio-card {
+  width: 100%;
+  max-width: 400px;
+  padding: 16px;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.radio-card:hover {
+  border-color: #1890ff;
+}
+
+.radio-card.selected {
+  border-color: #1890ff;
+  background-color: #f0f7ff;
+}
+
+.radio-title {
+  font-weight: bold;
+  font-size: 18px;
+  color: #1890ff;
+}
+
+.radio-content {
+  font-size: 14px;
+  color: #555;
+  margin-top: 10px;
+}
+
+.reguler-options {
+  margin-top: 20px;
+  padding: 20px;
+  border: 1px dashed #e0e0e0;
+  border-radius: 8px;
+}
+
+.price-display {
+  margin-top: 10px;
+  font-size: 16px;
+  color: #333;
+}
+
+.button-group {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.back-button {
+  background: #e0e0e0;
+  color: #333;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.back-button:hover {
+  background: #c0c0c0;
+}
+
+.submit-button {
+  background: #1890ff;
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.submit-button:hover {
+  background: #1073c6;
+}

@@ -2,7 +2,7 @@
 'use client';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Form, Input, DatePicker, Select, Button, Card } from 'antd';
+import { Form, Input, DatePicker, Select, Button, Card, Space } from 'antd';
 import { RootState } from '@/store/store';
 import { updateForm } from '@/store/formSlice';
 import type { Dayjs } from 'dayjs';
@@ -103,7 +103,7 @@ export const RegistrationStep1 = ({ onNext }: RegistrationStep1Props) => {
   };
 
   return (
-    <Card title="Step 1: Isi Biodata" className="registration-card">
+    <Card title="Personal Information" className="registration-card">
       <Form
         form={form}
         layout="vertical"
@@ -116,35 +116,35 @@ export const RegistrationStep1 = ({ onNext }: RegistrationStep1Props) => {
         autoComplete="off"
       >
         <Form.Item
-          label="Nama Lengkap"
+          label="Full Name"
           name="fullName"
-          rules={[{ required: true, message: 'Nama lengkap wajib diisi!' }]}
+          rules={[{ required: true, message: 'Please fill your full name!!!' }]}
         >
           <Input 
-            placeholder="Masukkan nama lengkap"
+            placeholder="Enter your full name"
             onChange={(e) => dispatch(updateForm({ fullName: e.target.value }))} 
           />
         </Form.Item>
 
         <Form.Item
-          label="Email Aktif"
+          label="Email Adress"
           name="email"
-          rules={[{ required: true, message: 'Email wajib diisi!' }]}
+          rules={[{ required: true, message: 'Please enter your email!!!' }]}
         >
           <Input 
-            placeholder="Masukkan Email Aktif"
+            placeholder="Example@domail.com"
             onChange={(e) => dispatch(updateForm({ email: e.target.value }))} 
           />
         </Form.Item>
 
         <Form.Item
-          label="Tanggal Lahir"
+          label="Date of Birth"
           name="birthDate"
-          rules={[{ required: true, message: 'Tanggal lahir wajib diisi!' }]}
+          rules={[{ required: true, message: 'Please select your birthdate!!!' }]}
         >
           <DatePicker 
             className="full-width"
-            placeholder="Pilih tanggal lahir"
+            placeholder="Select date of birth"
             onChange={(date: Dayjs | null) => {
               dispatch(updateForm({ birthDate: date ? date.format('YYYY-MM-DD') : null }));
             }}
@@ -153,38 +153,33 @@ export const RegistrationStep1 = ({ onNext }: RegistrationStep1Props) => {
         </Form.Item>
 
         <Form.Item
-          label="Nomor Telepon WhatsApp"
-          name="phone"
-          rules={[{ required: true, message: 'Nomor telepon wajib diisi!' }]}
-        >
-          <Input 
-            placeholder="Masukkan nomor telepon"
-            onChange={(e) => dispatch(updateForm({ phone: e.target.value }))} 
-          />
-        </Form.Item>
+      label="WhatsApp Number"
+      name="phone"
+      rules={[{ required: true, message: 'Please fill your WhatsApp Number!!!' }]}
+    >
+      <Space.Compact>
+        <Select defaultValue="+62" style={{ width: 70, height: 40}} disabled>
+          <Select.Option value="+62">+62</Select.Option>
+        </Select>
+        <Input
+          style={{ width: 'calc(100% - 70px)' }}
+          placeholder="Example: 81234567890"
+          onChange={(e) => {
+            const phoneNumber = `+62${e.target.value}`;
+            dispatch(updateForm({ phone: phoneNumber }));
+          }}
+        />
+      </Space.Compact>
+    </Form.Item>
+        
 
         <Form.Item
-          label="Darimana Kamu Tau Program empowerU?"
-          name="infoSource"
-          rules={[{ required: true, message: 'Sumber informasi wajib dipilih!' }]}
-        >
-          <Select
-            placeholder="Pilih sumber informasi"
-            onChange={(value) => dispatch(updateForm({ infoSource: value }))} 
-          >
-            {['Instagram', 'Facebook', 'Twitter', 'Teman/Kerabat', 'Website', 'Lainnya'].map(source => (
-              <Option key={source} value={source}>{source}</Option>
-            ))}
-          </Select>
-        </Form.Item>
-
-        <Form.Item
-          label="Provinsi"
+          label="Province"
           name="province"
-          rules={[{ required: true, message: 'Provinsi wajib dipilih!' }]}
+          rules={[{ required: true, message: 'Select your Province!!!' }]}
         >
           <Select
-            placeholder="Pilih provinsi"
+            placeholder="Select"
             onChange={handleProvinceChange}
             showSearch
             filterOption={(input, option) =>
@@ -200,12 +195,12 @@ export const RegistrationStep1 = ({ onNext }: RegistrationStep1Props) => {
         </Form.Item>
 
         <Form.Item
-          label="Kabupaten/Kota"
+          label="Country/City"
           name="regency"
-          rules={[{ required: true, message: 'Kabupaten/Kota wajib dipilih!' }]}
+          rules={[{ required: true, message: 'Select your Country/City!!!' }]}
         >
           <Select
-            placeholder="Pilih kabupaten/kota"
+            placeholder="Select"
             onChange={handleRegencyChange}
             disabled={!regencies.length}
           >
@@ -216,12 +211,12 @@ export const RegistrationStep1 = ({ onNext }: RegistrationStep1Props) => {
         </Form.Item>
 
         <Form.Item
-          label="Kecamatan"
+          label="District"
           name="district"
-          rules={[{ required: true, message: 'Kecamatan wajib dipilih!' }]}
+          rules={[{ required: true, message: 'Select your District!!!' }]}
         >
           <Select
-            placeholder="Pilih kecamatan"
+            placeholder="Select"
             onChange={handleDistrictChange}
             disabled={!districts.length}
           >
@@ -232,12 +227,12 @@ export const RegistrationStep1 = ({ onNext }: RegistrationStep1Props) => {
         </Form.Item>
 
         <Form.Item
-          label="Kelurahan/Desa"
+          label="Village/Subdistrict"
           name="village"
-          rules={[{ required: true, message: 'Kelurahan/Desa wajib dipilih!' }]}
+          rules={[{ required: true, message: 'Select your Village/Subdistrict!!!' }]}
         >
           <Select
-            placeholder="Pilih kelurahan/desa"
+            placeholder="Select"
             disabled={!villages.length}
           >
             {villages.map((village) => (
@@ -246,21 +241,41 @@ export const RegistrationStep1 = ({ onNext }: RegistrationStep1Props) => {
           </Select>
         </Form.Item>
 
-        <Form.Item label="Alamat Lengkap" name="address">
+        <Form.Item 
+          label="Full Address" 
+          name="address"
+          rules={[{ required: true, message: 'Write your reason!!!' }]}
+          >
+            
           <TextArea 
             rows={4} 
-            placeholder="Masukkan alamat lengkap Contoh: Jl.Nilam No.11 Rt02/009"
+            placeholder="Example: Jl.Nilam No.11 Rt02/009"
             onChange={(e) => dispatch(updateForm({ address: e.target.value }))} 
           />
         </Form.Item>
 
         <Form.Item
-          label="Alasan Mendaftar"
+          label="Where do you know about the empowerU programme?"
+          name="infoSource"
+          rules={[{ required: true, message: 'Select your source!!!' }]}
+        >
+          <Select
+            placeholder="Pick your source of info"
+            onChange={(value) => dispatch(updateForm({ infoSource: value }))} 
+          >
+            {['Instagram', 'Facebook', 'Twitter', 'Friends/Relations', 'Website', 'Other'].map(source => (
+              <Option key={source} value={source}>{source}</Option>
+            ))}
+          </Select>
+        </Form.Item>
+
+        <Form.Item
+          label="Why you want to join the programme?"
           name="reason"
-          rules={[{ required: true, message: 'Alasan mendaftar wajib diisi!' }]}
+          rules={[{ required: false, message: 'Write your reason!!!' }]}
         >
           <TextArea 
-            placeholder="Masukkan alasan mendaftar"
+            placeholder="Write Here"
             className="reason-textarea"
             onChange={(e) => dispatch(updateForm({ reason: e.target.value }))} 
           />
@@ -268,7 +283,7 @@ export const RegistrationStep1 = ({ onNext }: RegistrationStep1Props) => {
 
         <Form.Item>
           <Button type="primary" htmlType="submit" className="submit-button">
-            Selanjutnya
+            Next
           </Button>
         </Form.Item>
       </Form>
