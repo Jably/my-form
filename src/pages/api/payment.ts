@@ -67,8 +67,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     const core = new MidtransClient.CoreApi({
       isProduction: false,
-      serverKey: process.env.SERVER_KEY,
-      clientKey: process.env.CLIENT_KEY,
+      serverKey: Buffer.from(`${process.env.NEXT_PRIVATE_MIDTRANS_SERVER_KEY}:`),
+      clientKey:Buffer.from(`${process.env.NEXT_PRIVATE_MIDTRANS_CLIENT_KEY}:`),
     });
 
     try {
@@ -82,8 +82,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const { orderId } = req.body;
     const core = new MidtransClient.CoreApi({
       isProduction: false,
-      serverKey: process.env.SERVER_KEY,
-      clientKey: process.env.CLIENT_KEY,
+      serverKey: Buffer.from(`${process.env.NEXT_PRIVATE_MIDTRANS_SERVER_KEY}:`),
+      clientKey:Buffer.from(`${process.env.NEXT_PRIVATE_MIDTRANS_CLIENT_KEY}:`),
     });
 
     try {
