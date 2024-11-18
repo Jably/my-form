@@ -15,6 +15,7 @@
     "antd": "^5.3.3",
     "axios": "^1.6.2",
     "dayjs": "^1.11.10",
+    "html2canvas": "^1.4.1",  // Ditambahkan
     "midtrans-client": "^1.4.1",
     "midtrans-node-client": "^0.0.6",
     "mysql2": "^3.6.5",
@@ -25,6 +26,7 @@
     "react-redux": "^9.0.4"
   },
   "devDependencies": {
+    "@types/html2canvas": "^1.0.0",  // Ditambahkan
     "@types/node": "^20.10.4",
     "@types/react": "^18.2.45",
     "@types/react-dom": "^18.2.17",
