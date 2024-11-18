@@ -19,5 +19,14 @@ declare module 'qrcode.react' {
   export default QRCode;
 }
 
+declare module 'jsPDF' {
+  const jspdf: any;
+  export default jspdf;
+}
+
+declare module 'nodemailer' {
+  const nodemailer: any;
+  export default nodemailer;
+}
 
 export {};

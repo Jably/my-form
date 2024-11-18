@@ -2,7 +2,7 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { prisma } from '../../../lib/prisma';
 
-interface FormData {
+interface savedFormData {
   fullName: string;
   birthDate: string | null;
   phone: string;
@@ -13,28 +13,35 @@ interface FormData {
   village: string;
   address: string;
   reason: string;
-  category: string; // Jalur pendaftaran
-  option: string;   // Opsi jalur pendaftaran
-  price: string;    // Tambahkan properti price
+  option: string;   
+  price: string;    
   email: string;
 }
 
 const saveRegistrationData = async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === 'POST') {
-    const { orderId, formData }: { orderId: string; formData: FormData } = req.body;
+    const { orderId, savedFormData }: { orderId: string; savedFormData: savedFormData } = req.body;
+
+    // Check if formData is defined
+    if (!savedFormData) {
+      return res.status(400).json({ message: 'formData is required' });
+    }
 
     // Gabungkan province, regency, district, dan village ke dalam satu string fullAddress
-    const fullAddress = `${formData.address}, ${formData.village}, ${formData.district}, ${formData.regency}, ${formData.province}`;
+    const fullAddress = `${savedFormData.address || 'Alamat tidak tersedia'}, ${savedFormData.village}, ${savedFormData.district}, ${savedFormData.regency}, ${savedFormData.province}`;
+    console.log('Data form yang diterima:', savedFormData);
+    console.log('Full Address:', fullAddress);
 
     try {
       const result = await prisma.registration.create({
         data: {
           orderId: orderId,
-          fullName: formData.fullName,
-          email: formData.email,
-          phone: formData.phone,
+          fullName: savedFormData.fullName,
+          email: savedFormData.email,
+          phone: savedFormData.phone,
           address: fullAddress,
-          price: formData.price,
+          option: savedFormData.option,
+          price: savedFormData.price,
           transactionStatus: 'settlement', // Status transaksi yang berhasil
         },
       });
@@ -48,5 +55,4 @@ const saveRegistrationData = async (req: NextApiRequest, res: NextApiResponse) =
     res.status(405).json({ message: 'Method Not Allowed' });
   }
 };
-
 export default saveRegistrationData;
